@@ -1,0 +1,130 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --cursor-size: 20px;
+  --cursor-hover-size: 60px;
+}
+
+body {
+  background-color: #FAFBFC;
+  color: #0A0A0B;
+  overflow-x: hidden;
+  cursor: none; /* Hide default cursor */
+}
+
+/* Custom Cursor */
+#cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: var(--cursor-size);
+  height: var(--cursor-size);
+  border: 1px solid #0066FF;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  transition: width 0.3s, height 0.3s, background-color 0.3s;
+  mix-blend-mode: difference;
+}
+
+#cursor.hovered {
+  width: var(--cursor-hover-size);
+  height: var(--cursor-hover-size);
+  background-color: rgba(0, 102, 255, 0.2);
+  border-color: transparent;
+  backdrop-filter: blur(2px);
+}
+
+/* Noise Overlay */
+.noise-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 9000;
+  opacity: 0.03;
+  background: url('data:image/svg+xml;utf8,%3Csvg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="noiseFilter"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" filter="url(%23noiseFilter)"/%3E%3C/svg%3E');
+}
+
+/* Typography & Layout */
+.editorial-text {
+  line-height: 0.9;
+  letter-spacing: -0.03em;
+}
+
+/* Scroll Reveal Animation Classes */
+.reveal-text {
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+  transform: translateY(100%);
+  opacity: 0;
+  transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal-text.active {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.reveal-fade {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 1s ease-out;
+}
+
+.reveal-fade.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Preloader */
+#preloader {
+  position: fixed;
+  inset: 0;
+  background: #0A0A0B;
+  z-index: 10000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  transition: transform 0.8s cubic-bezier(0.76, 0, 0.24, 1);
+}
+
+.loader-line {
+  width: 0%;
+  height: 1px;
+  background: #0066FF;
+  transition: width 1.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Navbar Scrolled State */
+nav.scrolled {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.03);
+}
+
+/* Ensure mix-blend-difference works or reset it for glass navbar */
+nav.scrolled .nav-content {
+  mix-blend-mode: normal;
+  color: #0A0A0B;
+}
+
+nav:not(.scrolled) .nav-content {
+  mix-blend-mode: difference;
+  color: white;
+}
+
+/* Hover Image Distort Effect (Simulated via scale/clip) */
+.gallery-item:hover img {
+  transform: scale(1.1);
+  filter: contrast(1.2);
+}
+
